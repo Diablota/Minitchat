@@ -1,0 +1,37 @@
+body {
+    font:12px arial;
+    color: #2cbba1;
+    text-align:center;
+    padding:160px; 
+    background-image:url(fondfleur.jpg);
+    background-size: 2000px;
+    background-repeat: no-repeat;
+    }
+  
+#chatbox {
+    text-align:left;
+    margin:0 auto;
+    margin-bottom:25px;
+    padding:10px;
+    background:#fff;
+    height:270px;
+    width:430px;
+    border:3px #8e2828;
+    overflow-x: hidden;
+    overflow-wrap: break-word; }
+
+#wrapper {
+    margin:0 auto;
+    padding-bottom:25px;
+    background:#bd71458f;
+    width:504px;
+    border:3px solid black; }
+
+#monbouton {
+    border-radius: 8px;
+    height: 43px;
+    width: 144px;
+    background-color: #bd7145;
+    color:#2cbba1;}
+
+  
