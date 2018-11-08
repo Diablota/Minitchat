@@ -13,39 +13,48 @@
         </head>
         <body>
 
-<?php include('initialisation.php'); ?>
+<?php 
+    include('initialisation.php');
+?>
 
-            <form>
             <div id="wrapper">
-            <div class="form-group"> 
-                <h3>Bienvenue 
-                    <?php
-                        echo $_SESSION['pseudo'];
-                    ?></h3>
+                <form method="POST" action="minitchatbootstrap.php"> 
+                    <div class="form-group"> 
+                        <h3>Bienvenue 
+                            <?php 
 
+                            
 
-                <form method="post" action="minitchatbootstrap.php">  
-                    <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10 text-center">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                            <input type="email" name="emailConnection" class="form-control" id="exampleInputEmail1" placeholder="Votre adresse email">
+                            //print_r($_SESSION);
+                            if(isset($_SESSION['pseudo'])) {
+                                echo $_SESSION['pseudo'];
+                            } 
+                            ?>
+                        </h3>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10 text-center">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                    <input type="email" name="emailConnection" class="form-control" id="exampleInputEmail1" placeholder="Votre adresse email" />
 
-                            <label for="exampleInputPassword1">Mot de Passe</label>
-                            <input type="password" class="form-control" name="mdp" id="exampleInputPassword1" placeholder="Votre Mot de Passe"> </br>
-
-                            <input type="submit" value="Se Connecter" id="monbouton" >
-
+                                    <label for="exampleInputPassword1">Mot de Passe</label>
+                                    <input type="password" class="form-control" name="mdp" id="exampleInputPassword1" placeholder="Votre Mot de Passe" />
+                                    <br />
+                                    <input type="submit" value="Se Connecter" class="monbouton" />
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
                         </div>
-                        <div class="col-md-1"></div>
-                    </div>
                     </div>
                 </form> 
 
 
 
-                <form action="minitchatbootstrap.php" method="post"><input type="submit" value="Quitter" id="monbouton" name="logout"></form> </br> </br>
+                <form action="minitchatbootstrap.php" method="post">
+                    <input type="hidden" name="deconnection" value="1" />
+                    <input type="submit" value="Quitter" class="monbouton" name="logout">
+                </form> <br /> <br />
                 
                 <div id="chatbox" >
                 
@@ -53,28 +62,29 @@
                
 <?php
 // Connexion à la base de données
-
+if (isset($_POST["deconnection"])) {
+    session_unset();
+}
 
 if (isset($_POST["emailConnection"])) {
-   
-$reponse = $bdd->prepare('
-    SELECT * 
-    FROM utilisateur 
-    WHERE email = "' . $_POST["emailConnection"] . '"
-');
-$reponse->execute();
+    $reponse = $bdd->prepare('
+        SELECT * 
+        FROM utilisateur 
+        WHERE email = "' . $_POST["emailConnection"] . '"
+    ');
+    $reponse->execute();
 
-// Affichage de chaque message (toutes les données sont protégées par htmlspecialchars)
-while ($donnees = $reponse->fetch())
-{
-    if ($donnees['mdp'] == $_POST["mdp"]) {
-        echo 'Vous êtes connecté';
-        $_SESSION['userid'] = $donnees['id'];
-        $_SESSION['pseudo'] = $donnees['pseudo'];
-    } else {
-        echo 'Vérifiez vos identifiants';
+    // Affichage de chaque message (toutes les données sont protégées par htmlspecialchars)
+    while ($donnees = $reponse->fetch())
+    {
+        if ($donnees['mdp'] == $_POST["mdp"]) {
+            echo 'Vous êtes connecté';
+            $_SESSION['userid'] = $donnees['id'];
+            $_SESSION['pseudo'] = $donnees['pseudo'];
+        } else {
+            echo 'Vérifiez vos identifiants';
+        }
     }
-}
 
     $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, pseudo, email, mdp) VALUES (:nom, :prenom, :pseudo, :email, :mdp)');
     $req->bindParam(':prenom', $_POST["prenom"], PDO::PARAM_STR);
@@ -86,8 +96,9 @@ while ($donnees = $reponse->fetch())
 }
 
 if (isset($_POST["message"])) {
-    $req = $bdd->prepare('INSERT INTO minichat (message, utilisateurId) VALUES (:message, ' . $_SESSION['userid'] . ')');
+    $req = $bdd->prepare('INSERT INTO minichat (message, utilisateurId) VALUES (:message, :userId)');
     $req->bindParam(':message', $_POST["message"]);
+    $req->bindParam(':userId', $_SESSION['userid']);
     $req->execute();
 }
 
@@ -118,8 +129,6 @@ if(isset($_POST['logout'])) {
 
 ?>
                 </div>
-            </div> 
-            </form>
             <form method="post" action="minitchatbootstrap.php">
                 <label for="message">Message</label>
                 <div class="form-group">
@@ -131,7 +140,7 @@ if(isset($_POST['logout'])) {
                         <div class="col-md-1"></div>
                     </div>
                 </div>
-                <input type="submit" value="Envoyer" id="monbouton">
+                <input type="submit" value="Envoyer" class="monbouton">
             </form>
 </body>
 </html>
@@ -171,7 +180,7 @@ if (isset($_POST["email"])) {
                             <label for="exampleInputPassword1">Mot de Passe</label>
                             <input type="password" class="form-control" name="mdp" id="exampleInputPassword1" placeholder="Votre Mot de Passe"> </br>
 
-                            <input type="submit" value="S'inscrire" id="monbouton">
+                            <input type="submit" value="S'inscrire" class="monbouton">
 
                         </div>
                         <div class="col-md-1"></div>
