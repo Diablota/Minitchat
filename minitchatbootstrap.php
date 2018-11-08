@@ -1,29 +1,25 @@
 <!DOCTYPE html>
     <html lang="fr">
         <head>
-            <title>Chat - Customer Module</title>
+            <title>Mont tchatche</title>
             <link type="text/css" rel="stylesheet" href="lib/css/bootstrap.css" />
-            <link type="text/css" rel="stylesheet" href="lib/css/bootstrap-grid.css" />
-            <link type="text/css" rel="stylesheet" href="lib/css/bootstrap-reboot.css" />
-
-            <script type="text/javascript" src="lib/js/bootstrap.js"></script>
-            <script type="text/javascript" src="lib/js/bootstrap.bundle.js"></script>
-
             <link rel="stylesheet" type="text/css" href="minitchatbootstrap.css">
+
+            <script type="text/javascript" src="lib/js/jquery.js"></script>
+            <script type="text/javascript" src="lib/js/bootstrap.js"></script>
+
         </head>
         <body>
 
 <?php 
     include('initialisation.php');
 ?>
-
             <div id="wrapper">
                 <form method="POST" action="minitchatbootstrap.php"> 
                     <div class="form-group"> 
+                    </br>
                         <h3>Bienvenue 
                             <?php 
-
-                            
 
                             //print_r($_SESSION);
                             if(isset($_SESSION['pseudo'])) {
@@ -31,35 +27,28 @@
                             } 
                             ?>
                         </h3>
-                        <div class="form-group">
-                            <div class="row">
+                            <div class="form-group">
+                                <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10 text-center">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                    <input type="email" name="emailConnection" class="form-control" id="exampleInputEmail1" placeholder="Votre adresse email" />
-
+                                    <input type="email" name="emailConnection" class="form-control" placeholder="Votre adresse email" />
                                     <label for="exampleInputPassword1">Mot de Passe</label>
-                                    <input type="password" class="form-control" name="mdp" id="exampleInputPassword1" placeholder="Votre Mot de Passe" />
+                                    <input type="password" class="form-control" name="mdp" placeholder="Votre Mot de Passe" />
                                     <br />
                                     <input type="submit" value="Se Connecter" class="monbouton" />
                                 </div>
                                 <div class="col-md-1"></div>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </form> 
-
-
-
                 <form action="minitchatbootstrap.php" method="post">
                     <input type="hidden" name="deconnection" value="1" />
-                    <input type="submit" value="Quitter" class="monbouton" name="logout">
+                    <input type="submit" value="Quitter" class="monbouton" name="logout" />
                 </form> <br /> <br />
-                
                 <div id="chatbox" >
                 
-              
-               
 <?php
 // Connexion à la base de données
 if (isset($_POST["deconnection"])) {
@@ -129,21 +118,19 @@ if(isset($_POST['logout'])) {
 
 ?>
                 </div>
-            <form method="post" action="minitchatbootstrap.php">
-                <label for="message">Message</label>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10 text-center">
-                            <input type="text" name="message" id="message" size="63" class="form-control"  />
+                    <form method="post" action="minitchatbootstrap.php">
+                    <label for="message">Message</label>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                                <div class="col-md-10 text-center">
+                                <input type="text" name="message" id="message" size="63" class="form-control"  />
+                                </div>
+                                <div class="col-md-1"></div>
                         </div>
-                        <div class="col-md-1"></div>
                     </div>
-                </div>
-                <input type="submit" value="Envoyer" class="monbouton">
-            </form>
-</body>
-</html>
+                    <input type="submit" value="Envoyer" class="monbouton" />
+                    </form>
 
 <?php
 
@@ -159,31 +146,58 @@ if (isset($_POST["email"])) {
 
 ?>
 
-                <form method="post" action="minitchatbootstrap.php">  
-                    <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10 text-center">
 
-                            <label for="validationDefault01">Prénom</label> 
-                            <input type="text" name="prenom" class="form-control" placeholder="Votre Prénom">
+<!-- Button trigger modal -->
+<button type="button" class="monbouton" data-toggle="modal" data-target="#exampleModal">
+  S'inscrire
+</button>
 
-                            <label for="validationDefault02">Nom de Famille</label>
-                            <input type="text" name="nom" class="form-control" placeholder="Votre Nom de Famille">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Inscription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <div class="mamodal">
+                        <form method="post" action="minitchatbootstrap.php">  
+                            <div class="form-group">
+                                <div class="row">
+                                <div class="col-md-1"></div>
+                                    <div class="col-md-10 text-center">
+                                        <label for="validationDefault01">Prénom</label> 
+                                        <input type="text" name="prenom" class="form-control" placeholder="Votre Prénom" /> </br>
 
-                            <label for="pseudo">Pseudo</label>
-                            <input type="text" name="pseudo" class="form-control" placeholder="Votre Pseudo">
+                                        <label for="validationDefault02">Nom de Famille</label>
+                                        <input type="text" name="nom" class="form-control" placeholder="Votre Nom de Famille" /> </br>
 
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Votre adresse email">
+                                        <label for="pseudo">Pseudo</label>
+                                        <input type="text" name="pseudo" class="form-control" placeholder="Votre Pseudo" />
 
-                            <label for="exampleInputPassword1">Mot de Passe</label>
-                            <input type="password" class="form-control" name="mdp" id="exampleInputPassword1" placeholder="Votre Mot de Passe"> </br>
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Votre adresse email" /> </br>
 
-                            <input type="submit" value="S'inscrire" class="monbouton">
+                                        <label for="exampleInputPassword1">Mot de Passe</label>
+                                        <input type="password" class="form-control" name="mdp" id="exampleInputPassword1" placeholder="Votre Mot de Passe" /> </br>
 
-                        </div>
-                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </body>
+    </html>

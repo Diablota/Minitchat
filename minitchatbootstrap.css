@@ -43,3 +43,9 @@ input:focus {
     outline: none;
     border: 3px solid #2cbba1  !important;
 }
+
+.mamodal {
+    background-image:url(contourentier.jpg);
+    background-size: 370px;
+    background-repeat: no-repeat;
+}
