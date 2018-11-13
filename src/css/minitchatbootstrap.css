@@ -3,7 +3,7 @@ body {
     color: #2cbba1;
     text-align:center;
     padding:160px; 
-    background-image:url(fondfleur.jpg);
+    background-image:url(../img/fondfleur.jpg);
     background-size: 2000px;
     background-repeat: no-repeat;
     }
@@ -15,7 +15,7 @@ body {
     padding:10px;
     background:#fff;
     height:270px;
-    width:430px;
+    width:410px;
     border:3px solid #8e2828;
     overflow-x: hidden;
     overflow-wrap: break-word; }
@@ -45,7 +45,13 @@ input:focus {
 }
 
 .mamodal {
-    background-image:url(contourentier.jpg);
-    background-size: 370px;
+    background-image:url(../img/visage.gif);
+    background-size: 470px;
+    background-repeat: no-repeat;
+}
+
+.mamodal1 {
+    background-image:url(../img/monde.gif);
+    background-size: 470px;
     background-repeat: no-repeat;
 }
