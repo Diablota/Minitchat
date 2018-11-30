@@ -24,11 +24,13 @@ if (isset($_POST["emailConnection"])) {
     }
 }
 
-if (isset($_POST["message"])) {
-    insererMessage($_POST["message"], $_SESSION['userid']);
+if(empty($msgConnect) && isset($_SESSION['pseudo'])) {
+	$msgConnect = $_SESSION['pseudo'];
 }
 
-
+if (isset($_POST["message"]) && isset($_SESSION['userid'])) {
+    insererMessage($_POST["message"], $_SESSION['userid']);
+}
 
 // inscription
 if (isset($_POST["email"])) {
@@ -44,4 +46,23 @@ if (isset($_POST["logout"])) {
 
 $reponse = showMessage();
 
-require("view/vueminitchat.php");
+$chatmessage = '';
+while ($donnees = $reponse->fetch())
+	$chatmessage .= '<p><strong>' . htmlspecialchars($donnees['pseudo']) . '</strong> : ' . htmlspecialchars($donnees['message']) . '</p>';
+
+require_once 'vendor/autoload.php';
+
+$loader = new Twig_Loader_Filesystem('view');
+$twig = new Twig_Environment($loader);
+
+$twig->addGlobal('session', $_SESSION);
+
+$template= $twig->loadTemplate('index.twig.html');
+
+echo $twig->render('index.twig.html', array(
+	'msgConnect' => $msgConnect,
+	'chatmessage' => $chatmessage,
+	'showChat' => $showChat
+));
+
+// require("view/vueminitchat.php");
